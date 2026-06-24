@@ -1,6 +1,6 @@
 import { eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, users } from "../drizzle/schema";
+import { InsertUser, users, customers, orders, pricingConfig, InsertCustomer, InsertOrder } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
 let _db: ReturnType<typeof drizzle> | null = null;
@@ -89,4 +89,86 @@ export async function getUserByOpenId(openId: string) {
   return result.length > 0 ? result[0] : undefined;
 }
 
-// TODO: add feature queries here as your schema grows.
+export async function createCustomer(customer: InsertCustomer) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  const result = await db.insert(customers).values(customer);
+  return result;
+}
+
+export async function getOrCreateCustomer(name: string, phone: string, email?: string, address?: string) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  // Try to find existing customer by phone
+  const existing = await db.select().from(customers).where(eq(customers.phone, phone)).limit(1);
+  if (existing.length > 0) return existing[0];
+  
+  // Create new customer
+  const result = await db.insert(customers).values({ name, phone, email, address });
+  const newCustomer = await db.select().from(customers).where(eq(customers.phone, phone)).limit(1);
+  return newCustomer[0];
+}
+
+export async function createOrder(order: InsertOrder) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  const result = await db.insert(orders).values(order);
+  return result;
+}
+
+export async function getOrderById(id: number) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  const result = await db.select().from(orders).where(eq(orders.id, id)).limit(1);
+  return result[0];
+}
+
+export async function getOrderByOrderId(orderId: string) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  const result = await db.select().from(orders).where(eq(orders.orderId, orderId)).limit(1);
+  return result[0];
+}
+
+export async function getAllOrders() {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  return await db.select().from(orders).orderBy(orders.createdAt);
+}
+
+export async function updateOrderStatus(id: number, status: string) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  await db.update(orders).set({ status: status as any }).where(eq(orders.id, id));
+}
+
+export async function updateOrderPaymentStatus(id: number, paymentStatus: string) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  await db.update(orders).set({ paymentStatus }).where(eq(orders.id, id));
+}
+
+export async function getDeliveredOrdersTotal() {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  const result = await db.select().from(orders).where(eq(orders.status as any, "Delivered"));
+  return result.reduce((sum, order) => sum + order.totalCost, 0);
+}
+
+export async function getPricingConfig() {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  return await db.select().from(pricingConfig);
+}
+
+export async function getPricePerPage(printType: string, printingSides: string) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  const result = await db.select().from(pricingConfig).where(
+    eq(pricingConfig.printType, printType)
+  ).limit(1);
+  return result[0]?.pricePerPage || 0;
+}
+
+// TODO: add more feature queries here as your schema grows.
