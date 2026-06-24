@@ -18,35 +18,35 @@
 - [x] Price calculation logic (B&W Xerox, B&W Print, Color Print)
 - [x] Cost breakdown display after calculation
 - [x] File upload form (PDF/Image validation)
-- [ ] S3 integration for file storage (backend API)
+- [x] S3 integration for file storage (backend API)
 - [x] File upload success confirmation
 
 ## Phase 4: Order Workflow & Notifications
-- [ ] Order creation after file upload and price calculation (backend API)
+- [x] Order creation after file upload and price calculation (backend API)
 - [x] WhatsApp pre-filled message with order details (frontend)
 - [ ] Owner notification system when new order placed (backend)
 - [x] Order tracking with unique Order ID (database schema ready)
 - [x] Customer details capture during upload (form ready)
 
 ## Phase 5: Admin Dashboard
-- [ ] Protected admin route with authentication
-- [ ] Orders table: Date, Order ID, User Details, Cost columns
-- [ ] Download uploaded files from S3
-- [ ] Order status dropdown (Pending → Printing → Ready for Pickup → Out for Delivery → Delivered)
-- [ ] Status update functionality
+- [x] Protected admin route with authentication
+- [x] Orders table: Date, Order ID, User Details, Cost columns
+- [x] Download uploaded files from S3
+- [x] Order status dropdown (Pending → Printing → Ready for Pickup → Out for Delivery → Delivered)
+- [x] Status update functionality
 - [ ] Navigation fix: Replace nested Link/a tags with proper wouter patterns
 
 ## Phase 6: Revenue Analytics & Invoices
-- [ ] Revenue analytics card showing total from Delivered orders
-- [ ] Invoice generation with InFo Printing Station template
-- [ ] Invoice includes customer details, itemized table, payment status
-- [ ] Printable invoice functionality
+- [x] Revenue analytics card showing total from Delivered orders
+- [x] Invoice generation with InFo Printing Station template
+- [x] Invoice includes customer details, itemized table, payment status
+- [x] Printable invoice functionality
 
 ## Phase 7: Backend API & Integration
-- [ ] File upload endpoint (/api/upload) with S3 integration
-- [ ] Order creation endpoint (/api/create-order)
+- [x] File upload endpoint (/api/upload) with S3 integration
+- [x] Order creation endpoint (/api/create-order)
 - [ ] Owner notification system
-- [ ] Fix server router z import issue
+- [x] Fix server router z import issue
 
 ## Phase 8: Testing & Deployment
 - [ ] Unit tests for price calculator logic
