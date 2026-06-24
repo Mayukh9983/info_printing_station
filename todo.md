@@ -24,7 +24,7 @@
 ## Phase 4: Order Workflow & Notifications
 - [x] Order creation after file upload and price calculation (backend API)
 - [x] WhatsApp pre-filled message with order details (frontend)
-- [ ] Owner notification system when new order placed (backend)
+- [x] Owner notification system when new order placed (backend)
 - [x] Order tracking with unique Order ID (database schema ready)
 - [x] Customer details capture during upload (form ready)
 
@@ -45,7 +45,7 @@
 ## Phase 7: Backend API & Integration
 - [x] File upload endpoint (/api/upload) with S3 integration
 - [x] Order creation endpoint (/api/create-order)
-- [ ] Owner notification system
+- [x] Owner notification system
 - [x] Fix server router z import issue
 
 ## Phase 8: Testing & Deployment

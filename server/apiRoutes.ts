@@ -2,6 +2,7 @@ import { Router, Request, Response } from "express";
 import multer from "multer";
 import * as db from "./db";
 import { uploadFile } from "./uploadHandler";
+import { notifyOwner } from "./_core/notification";
 
 const router = Router();
 const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 50 * 1024 * 1024 } });
@@ -89,8 +90,20 @@ router.post("/api/create-order", async (req: Request, res: Response) => {
 
     await db.createOrder(orderData);
 
-    // Send notification to owner (placeholder for now)
-    console.log(`New order created: ${orderId} for ${customerName}`);
+    // Send notification to owner
+    const notificationTitle = `New Order Received: ${orderId}`;
+    const notificationContent = `Customer: ${customerName}\nPhone: ${customerPhone}\nEmail: ${customerEmail || "N/A"}\nAddress: ${customerAddress || "N/A"}\n\nOrder Details:\n- Pages: ${pages}\n- Copies: ${copies}\n- Paper Type: ${paperType}\n- Paper Size: ${paperSize}\n- Print Color: ${printColor}\n- Sides: ${printingSides}\n- Binding: ${bindingOption}\n- Cover: ${coverOption}\n\nTotal Cost: ₹${(totalCost / 100).toFixed(2)}\n\nFile: ${fileName || "N/A"}\nStatus: Pending`;
+    
+    try {
+      const notificationSent = await notifyOwner({
+        title: notificationTitle,
+        content: notificationContent,
+      });
+      console.log(`Owner notification ${notificationSent ? "sent" : "failed"} for order ${orderId}`);
+    } catch (notificationError) {
+      console.error(`Failed to send owner notification for order ${orderId}:`, notificationError);
+      // Continue with order creation even if notification fails
+    }
 
     res.json({ orderId, success: true });
   } catch (error) {
