@@ -160,8 +160,8 @@ export default function Admin() {
       <div className="min-h-screen flex flex-col">
         <nav className="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-            <Link href="/">
-              <a className="text-2xl font-bold text-blue-600">InFo Printing Station</a>
+            <Link href="/" className="text-2xl font-bold text-blue-600">
+              InFo Printing Station
             </Link>
           </div>
         </nav>
@@ -176,11 +176,9 @@ export default function Admin() {
               Please log in with your Manus account to access the admin dashboard
             </p>
             <Link href="/">
-              <a>
-                <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white">
-                  Go to Home
-                </Button>
-              </a>
+              <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white">
+                Go to Home
+              </Button>
             </Link>
           </Card>
         </section>

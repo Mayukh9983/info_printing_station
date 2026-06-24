@@ -14,24 +14,24 @@ export default function Contact() {
       {/* Navigation */}
       <nav className="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-          <Link href="/">
-            <a className="text-2xl font-bold text-blue-600">InFo Printing Station</a>
+          <Link href="/" className="text-2xl font-bold text-blue-600">
+            InFo Printing Station
           </Link>
           <div className="flex gap-6">
-            <Link href="/services">
-              <a className="text-gray-700 hover:text-blue-600 font-medium">Services</a>
+            <Link href="/services" className="text-gray-700 hover:text-blue-600 font-medium">
+              Services
             </Link>
-            <Link href="/calculator">
-              <a className="text-gray-700 hover:text-blue-600 font-medium">Calculator</a>
+            <Link href="/calculator" className="text-gray-700 hover:text-blue-600 font-medium">
+              Calculator
             </Link>
-            <Link href="/upload">
-              <a className="text-gray-700 hover:text-blue-600 font-medium">Upload</a>
+            <Link href="/upload" className="text-gray-700 hover:text-blue-600 font-medium">
+              Upload
             </Link>
-            <Link href="/contact">
-              <a className="text-blue-600 font-medium">Contact</a>
+            <Link href="/contact" className="text-blue-600 font-medium">
+              Contact
             </Link>
-            <Link href="/admin">
-              <a className="text-gray-700 hover:text-blue-600 font-medium">Admin</a>
+            <Link href="/admin" className="text-gray-700 hover:text-blue-600 font-medium">
+              Admin
             </Link>
           </div>
         </div>
