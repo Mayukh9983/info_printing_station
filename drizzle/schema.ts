@@ -76,3 +76,19 @@ export const pricingConfig = mysqlTable("pricingConfig", {
 
 export type PricingConfig = typeof pricingConfig.$inferSelect;
 export type InsertPricingConfig = typeof pricingConfig.$inferInsert;
+
+export const files = mysqlTable("files", {
+  id: int("id").autoincrement().primaryKey(),
+  orderId: int("orderId").notNull(), // Foreign key to orders table
+  fileName: varchar("fileName", { length: 255 }).notNull(),
+  fileUrl: varchar("fileUrl", { length: 500 }).notNull(), // S3 URL
+  fileKey: varchar("fileKey", { length: 500 }).notNull(), // S3 key for retrieval
+  fileSize: int("fileSize").notNull(), // in bytes
+  mimeType: varchar("mimeType", { length: 50 }).notNull(), // application/pdf, image/jpeg, etc.
+  uploadedBy: varchar("uploadedBy", { length: 255 }), // customer name or email
+  uploadedAt: timestamp("uploadedAt").defaultNow().notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type File = typeof files.$inferSelect;
+export type InsertFile = typeof files.$inferInsert;

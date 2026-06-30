@@ -1,6 +1,6 @@
 import { eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, users, customers, orders, pricingConfig, InsertCustomer, InsertOrder } from "../drizzle/schema";
+import { InsertUser, users, customers, orders, pricingConfig, files, InsertCustomer, InsertOrder, InsertFile } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
 let _db: ReturnType<typeof drizzle> | null = null;
@@ -169,6 +169,28 @@ export async function getPricePerPage(printType: string, printingSides: string) 
     eq(pricingConfig.printType, printType)
   ).limit(1);
   return result[0]?.pricePerPage || 0;
+}
+
+// File management functions
+export async function createFile(file: InsertFile) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  const result = await db.insert(files).values(file);
+  return result;
+}
+
+export async function getFilesByOrderId(orderId: number) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  const result = await db.select().from(files).where(eq(files.orderId, orderId));
+  return result;
+}
+
+export async function getAllFiles() {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  const result = await db.select().from(files);
+  return result;
 }
 
 // TODO: add more feature queries here as your schema grows.

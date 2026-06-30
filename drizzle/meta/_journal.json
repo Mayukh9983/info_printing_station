@@ -15,6 +15,13 @@
       "when": 1782331839189,
       "tag": "0001_little_scorpion",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1782834943446,
+      "tag": "0002_wandering_wraith",
+      "breakpoints": true
     }
   ]
 }
